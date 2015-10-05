@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.cnag.rdconnect.beacon.model.Chromosome;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -63,6 +64,23 @@ public class DAOElasticSearch {
 		log.info("# es instance: " + elasticSearchInstance);
 		log.info("# es port: " + elasticSearchPort);		
 		
+		// for internal details of elasticsearch schema
+		Chromosome chromosome = Chromosome.fromString(chrom);
+		
+		switch(chromosome){			
+			case CHRMT:
+				chrom = Integer.toString(23);
+				break;
+			case CHRX:
+				chrom = Integer.toString(24);
+				break;
+			case CHRY:
+				chrom = Integer.toString(25);
+				break;
+			default:
+				break;			
+		}
+				
 		@SuppressWarnings("resource")
 		Client client = new TransportClient().addTransportAddress(new InetSocketTransportAddress(elasticSearchInstance, elasticSearchPort));                
      			
