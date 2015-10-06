@@ -67,7 +67,7 @@ public class SampleBeaconService implements BeaconService {
         this.datasets = new ArrayList<>();
         this.datasets.add(dataset);
 
-        this.beacon = new Beacon("rdconnect", "RD-Connect", "CNAG", "RD-Connect Variants Beacon", "0.1", "https://platform.rd-connect.eu", "platform@rd-connect.eu", "CAS", datasets, queries);
+        this.beacon = new Beacon("rdconnect", "RD-Connect", "CNAG", "RD-Connect Variants Beacon", "1.0", "https://platform.rd-connect.eu", "platform@rd-connect.eu", "CAS", datasets, queries);
 	}
 
 	@Override
