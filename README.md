@@ -37,7 +37,7 @@ API
 -----------------
 
 1. RD-Connect beacon description: <http://localhost:8080/cnag-beacon-1.0/api/info>
-2. RD-Connect beacon service:     <http://localhost:8080/cnag-beacon-1.0/api/query?chrom=CHROMOSOME_ID&pos=LONG_POSITION&allele=ALLELE&ref=REF s.a. http://localhost:8080/cnag-beacon-1.0/api/query?chrom=1&pos=65720708&allele=T&ref=hg19>
+2. RD-Connect beacon service:     <http://localhost:8080/cnag-beacon-1.0/api/query?chrom=CHROMOSOME_ID&pos=LONG_POSITION&allele=ALLELE&ref=REF> s.a. <http://localhost:8080/cnag-beacon-1.0/api/query?chrom=1&pos=65720708&allele=T&ref=hg19>
 
 ##License and terms of use
 The code in this repository is licensed under the [MIT license](http://opensource.org/licenses/MIT). An instance of the Beacon Network is a subject to [these terms of use](http://beacon-network.org/#/terms).
