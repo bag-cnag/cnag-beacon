@@ -91,7 +91,7 @@ public class DAOElasticSearch {
 			Map<String,Object> element = hit.getSource();
 			
 			// for testing purpose
-			log.info("es response: " + response.toString());
+			//log.info("es response: " + response.toString());
 			
 			if (allele.equalsIgnoreCase(element.get("alt").toString()))
 				return true;						   

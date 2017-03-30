@@ -82,7 +82,7 @@ public class SampleBeaconService implements BeaconService {
                 
         // query to manager DAOElasticSearch
         boolean foundVariant = daoES.searchVariant(chrom, pos, allele, ref, dataset);   
-        log.info("implementation beacon interface, result query: " + foundVariant);
+        //log.info("implementation beacon interface, result query: " + foundVariant);
                
         BeaconResponse response = new BeaconResponse(beacon.getId(), QueryUtils.getQuery(chrom, pos, allele, ref, dataset), null);
         Response responseResource = new Response(foundVariant, 0, null, "variant", null);        
