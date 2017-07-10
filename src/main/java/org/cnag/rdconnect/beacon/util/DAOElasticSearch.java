@@ -3,6 +3,8 @@ package org.cnag.rdconnect.beacon.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.Properties;
 
@@ -13,8 +15,8 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 
 /**
@@ -56,7 +58,7 @@ public class DAOElasticSearch {
 	
 
 	
-	public boolean searchVariant(String chrom, Long pos, String allele, String ref, String dataset) {		
+	public boolean searchVariant(String chrom, Long pos, String allele, String ref, String dataset) throws UnknownHostException {		
 		
 		boolean foundVariant = false;
 		
@@ -82,9 +84,11 @@ public class DAOElasticSearch {
 		}
 				
 		@SuppressWarnings("resource")
-		Client client = new TransportClient().addTransportAddress(new InetSocketTransportAddress(elasticSearchInstance, elasticSearchPort));                
-     			
-		FilterBuilder filter = FilterBuilders.andFilter(FilterBuilders.termFilter("chrom", chrom), FilterBuilders.termFilter("pos", pos));		
+		//Client client = new TransportClient().addTransportAddress(new InetSocketTransportAddress(elasticSearchInstance, elasticSearchPort));                
+		TransportClient client = TransportClient.builder().build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(elasticSearchInstance), elasticSearchPort));		
+		QueryBuilder filter = QueryBuilders.andQuery(QueryBuilders.termQuery("chrom", chrom), QueryBuilders.termQuery("pos", pos));	
+
+		//FilterBuilder filter = FilterBuilders.andFilter(FilterBuilders.termFilter("chrom", chrom), FilterBuilders.termFilter("pos", pos));		
 		SearchResponse response = client.prepareSearch(elasticSearchIndex).setTypes(elasticSearchType).setPostFilter(filter).execute().actionGet();
 			
 		for (  SearchHit hit : response.getHits()) {

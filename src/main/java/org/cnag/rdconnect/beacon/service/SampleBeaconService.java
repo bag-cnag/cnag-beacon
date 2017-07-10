@@ -35,6 +35,8 @@ import org.cnag.rdconnect.beacon.model.Reference;
 import org.cnag.rdconnect.beacon.model.Response;
 import org.cnag.rdconnect.beacon.util.DAOElasticSearch;
 import org.cnag.rdconnect.beacon.util.QueryUtils;
+
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +83,13 @@ public class SampleBeaconService implements BeaconService {
         }  
                 
         // query to manager DAOElasticSearch
-        boolean foundVariant = daoES.searchVariant(chrom, pos, allele, ref, dataset);   
+        boolean foundVariant = false;
+		try {
+			foundVariant = daoES.searchVariant(chrom, pos, allele, ref, dataset);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
         //log.info("implementation beacon interface, result query: " + foundVariant);
                
         BeaconResponse response = new BeaconResponse(beacon.getId(), QueryUtils.getQuery(chrom, pos, allele, ref, dataset), null);
