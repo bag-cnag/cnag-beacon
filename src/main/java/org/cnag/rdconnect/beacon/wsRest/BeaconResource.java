@@ -28,10 +28,20 @@ import org.cnag.rdconnect.beacon.model.Response;
 import org.cnag.rdconnect.beacon.service.BeaconService;
 import org.cnag.rdconnect.beacon.service.SampleBeaconService;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -52,4 +62,41 @@ public class BeaconResource {
     return service.query(chrom, pos, allele, ref, dataset);
 
     }
+    
+    @POST
+   	@Path("/match")
+   	public String createProductInJSON(@Context HttpHeaders headers, String a) throws IOException {
+
+   		System.out.println("=> Wrapper to MME call!");   		
+		//URL url = new URL("http://localhost:9000/api/v1/match/rdconnect");
+   		URL url = new URL("http://rdcompute1.rd-connect.eu:8016/api/v1/match/rdconnect");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+		conn.setRequestProperty("X-AUTH-TOKEN", headers.getRequestHeaders().getFirst("X-AUTH-TOKEN"));	
+		
+	
+		OutputStream os = conn.getOutputStream();
+		os.write(a.getBytes());
+		os.flush();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String output;
+		String jsonraw = "";
+		//System.out.println("Output from Server .... \n");
+		while ((output = br.readLine()) != null) {
+			jsonraw=jsonraw+output;
+		}
+
+		conn.disconnect();
+   		
+   		return jsonraw;
+
+   	}
+    
+    
+    
 }
