@@ -51,7 +51,7 @@ import javax.ws.rs.core.MediaType;
  * @version 1.0
  */
 @Path("/query")
-@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
+@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN,"application/vnd.ga4gh.matchmaker.v0.7+json","application/vnd.ga4gh.matchmaker.v0.8+json","application/vnd.ga4gh.matchmaker.v0.9+json","application/vnd.ga4gh.matchmaker.v1.0+json"})
 public class BeaconResource {
 
     private BeaconService service = new SampleBeaconService();
