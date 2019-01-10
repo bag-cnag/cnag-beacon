@@ -11,8 +11,8 @@ RUN apt-get install -y git
 COPY startup.sh /opt/startup.sh
 RUN chmod +x /opt/startup.sh
 
-RUN git clone https://$user@github.com/prota/cnag-beacon.git -b develop
-RUN cp /usr/local/tomcat/cnag-beacon/target/cnag-beacon-1.0.war /usr/local/tomcat/webapps/
+COPY target/cnag-beacon-1.0.war  /usr/local/tomcat/webapps/
+
 
 
 CMD ["/opt/startup.sh"]
