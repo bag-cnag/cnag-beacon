@@ -112,7 +112,7 @@ public class DAOElasticSearch {
 		SearchResponse response = client.prepareSearch(elasticSearchIndex).setTypes(elasticSearchType).setPostFilter(filter).execute().actionGet();*/
 int i;
 		Client client = Client.create();
-		client.addFilter(new HTTPBasicAuthFilter("userrdprotordconro","passrdprotordcon"));
+		client.addFilter(new HTTPBasicAuthFilter(username,password));
 		WebResource webResource = client
 		   .resource("http://"+elasticSearchInstance+":"+elasticSearchPort+"/"+elasticSearchIndex+"/_search?q=chrom%3A"+chrom+"%20AND%20pos%3A"+pos);
 
