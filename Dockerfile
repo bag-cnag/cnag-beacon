@@ -1,4 +1,4 @@
-FROM tomcat:8.0.32-jre8
+FROM tomcat:8.5-jre8
 
 MAINTAINER Joan Protasio <joan.protasio@cnag.crg.eu>
 
